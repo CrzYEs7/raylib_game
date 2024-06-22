@@ -68,7 +68,7 @@ int main(void)
     music = LoadMusicStream("resources/ambient.ogg");
     fxCoin = LoadSound("resources/coin.wav");
 
-    SetMusicVolume(music, 1.0f);
+    SetMusicVolume(music, 0.5f);
     PlayMusicStream(music);
 
     // Setup and init first screen
@@ -78,7 +78,7 @@ int main(void)
 #if defined(PLATFORM_WEB)
     emscripten_set_main_loop(UpdateDrawFrame, 60, 1);
 #else
-    SetTargetFPS(60);       // Set our game to run at 60 frames-per-second
+    SetTargetFPS(120);       // Set our game to run at 60 frames-per-second
     //--------------------------------------------------------------------------------------
 
     // Main game loop

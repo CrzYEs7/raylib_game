@@ -265,9 +265,11 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <ClInclude Include="player.hpp" />
     <ClInclude Include="src\screens.h" />
   </ItemGroup>
   <ItemGroup>
+    <ClCompile Include="player.cpp" />
     <ClCompile Include="src\raylib_game.cpp" />
     <ClCompile Include="src\screen_ending.cpp" />
     <ClCompile Include="src\screen_gameplay.cpp" />
