@@ -76,6 +76,7 @@ int FinishOptionsScreen(void);
 void InitGameplayScreen(void);
 void UpdateGameplayScreen(void);
 void DrawGameplayScreen(void);
+void draw_gameplay_ui(void);
 void UnloadGameplayScreen(void);
 int FinishGameplayScreen(void);
 

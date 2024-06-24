@@ -24,6 +24,7 @@
 **********************************************************************************************/
 
 #include "raylib.h"
+#include "raymath.h"
 #include "screens.h"
 #include "player.hpp"
 
@@ -32,7 +33,8 @@
 //----------------------------------------------------------------------------------
 static int framesCounter = 0;
 static int finishScreen = 0;
-Player* player;
+Camera2D* camera = new Camera2D;
+Player* player = { 0 };
 
 //----------------------------------------------------------------------------------
 // Gameplay Screen Functions Definition
@@ -43,6 +45,11 @@ void InitGameplayScreen(void)
 {
     // TODO: Initialize GAMEPLAY screen variables here!
     player = new Player();
+    camera->offset = { GetScreenWidth() / 2.0f, GetScreenHeight() / 2.0f };
+    camera->target = player->get_position();
+    camera->rotation = 0.0f;
+    camera->zoom = 1.0f;
+    
     framesCounter = 0;
     finishScreen = 0;
 }
@@ -50,25 +57,38 @@ void InitGameplayScreen(void)
 // Gameplay Screen Update logic
 void UpdateGameplayScreen(void)
 {
+    float delta = GetFrameTime();
     // TODO: Update GAMEPLAY screen variables here!
-    player->update(GetFrameTime());
+    player->update(delta);
+
+    // FIXED
+    camera->target = player->get_position();
+    // SMOOTH
+    /*camera->target.x = Lerp(camera->target.x, player->get_position().x, 10 * delta);
+    camera->target.y = Lerp(camera->target.y, player->get_position().y, 10 * delta);*/
+
+
     // Press enter or tap to change to ENDING screen
     if (IsKeyPressed(KEY_ENTER) || IsGestureDetected(GESTURE_TAP))
     {
         finishScreen = 1;
-        PlaySound(fxCoin);
+        //PlaySound(fxCoin);
     }
 }
 
 // Gameplay Screen Draw logic
 void DrawGameplayScreen(void)
 {
+    draw_gameplay_ui();
     // TODO: Draw GAMEPLAY screen here!
-    /*DrawRectangle(0, 0, GetScreenWidth(), GetScreenHeight(), PURPLE);
-    Vector2 pos = { 20, 10 };
-    DrawTextEx(font, "GAMEPLAY SCREEN", pos, font.baseSize*3.0f, 4, MAROON);*/
-    
-    player->draw();
+
+    BeginMode2D(*camera);
+        player->draw();
+    EndMode2D();
+}
+
+void draw_gameplay_ui(void)
+{
     DrawFPS(10, 10);
 }
 

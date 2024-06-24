@@ -68,8 +68,10 @@ int main(void)
     music = LoadMusicStream("resources/ambient.ogg");
     fxCoin = LoadSound("resources/coin.wav");
 
-    SetMusicVolume(music, 0.5f);
+    SetMusicVolume(music, 0.01f);
     PlayMusicStream(music);
+
+    SetSoundVolume(fxCoin, 0.01f);
 
     // Setup and init first screen
     currentScreen = LOGO;
