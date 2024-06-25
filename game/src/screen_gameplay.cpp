@@ -45,7 +45,10 @@ void InitGameplayScreen(void)
 {
     // TODO: Initialize GAMEPLAY screen variables here!
     player = new Player();
-    camera->offset = { GetScreenWidth() / 2.0f, GetScreenHeight() / 2.0f };
+    camera->offset = { 
+        GetScreenWidth() / 2.0f - player->get_size().x / 2, 
+        GetScreenHeight() / 2.0f - player->get_size().y / 2 };
+
     camera->target = player->get_position();
     camera->rotation = 0.0f;
     camera->zoom = 1.0f;
@@ -80,6 +83,11 @@ void UpdateGameplayScreen(void)
 void DrawGameplayScreen(void)
 {
     draw_gameplay_ui();
+
+    // DEBUG screen center
+    DrawLineEx({ 0.0, GetScreenHeight() / 2.0f }, { GetScreenWidth() * 1.0f, GetScreenHeight() / 2.0f}, 2, DARKPURPLE);
+    DrawLineEx({ GetScreenWidth() / 2.0f, 0.0 }, { GetScreenWidth() / 2.0f, GetScreenHeight() * 1.0f }, 2, DARKPURPLE);
+
     // TODO: Draw GAMEPLAY screen here!
 
     BeginMode2D(*camera);
