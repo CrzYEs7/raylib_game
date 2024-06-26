@@ -33,7 +33,7 @@
 //----------------------------------------------------------------------------------
 static int framesCounter = 0;
 static int finishScreen = 0;
-Camera2D* camera = new Camera2D;
+Camera2D* camera = { 0 };
 Player* player = { 0 };
 
 //----------------------------------------------------------------------------------
@@ -44,6 +44,7 @@ Player* player = { 0 };
 void InitGameplayScreen(void)
 {
     // TODO: Initialize GAMEPLAY screen variables here!
+    camera = new Camera2D;
     player = new Player();
     camera->offset = { 
         GetScreenWidth() / 2.0f - player->get_size().x / 2, 
@@ -85,12 +86,22 @@ void DrawGameplayScreen(void)
     draw_gameplay_ui();
 
     // DEBUG screen center
-    DrawLineEx({ 0.0, GetScreenHeight() / 2.0f }, { GetScreenWidth() * 1.0f, GetScreenHeight() / 2.0f}, 2, DARKPURPLE);
+    DrawLineEx({ 0.0, GetScreenHeight() / 2.0f }, { GetScreenWidth() * 1.0f, GetScreenHeight() / 2.0f }, 2, DARKPURPLE);
     DrawLineEx({ GetScreenWidth() / 2.0f, 0.0 }, { GetScreenWidth() / 2.0f, GetScreenHeight() * 1.0f }, 2, DARKPURPLE);
 
     // TODO: Draw GAMEPLAY screen here!
 
     BeginMode2D(*camera);
+        // DEBUG Draw grid
+        for (int x = 0; x <= 800; x += 50)
+        {
+            DrawLineEx({ (float)x, 0.0 }, { (float)x, (float)800 }, 1, GREEN);
+        }
+        for (int y = 0; y <= 800; y += 50)
+        {
+            DrawLineEx({ 0.0, (float)y }, { (float)800, (float)y }, 1, GREEN);
+        }
+
         player->draw();
     EndMode2D();
 }
