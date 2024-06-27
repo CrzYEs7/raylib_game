@@ -6,13 +6,14 @@ public:
 	Player();
 	~Player() = default;
 private:
-	Font font = font = LoadFont("resources/mecha.png");
+	Font font = LoadFont("resources/mecha.png");
 	Vector2 m_pos;
 	Vector2 m_dir;
 	Vector2 m_motion_vector;
 	Vector2 m_velocity;
 	Vector2 m_size;
 	float m_speed;
+	float m_angle;
 
 public:
 	void move(float delta);

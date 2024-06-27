@@ -83,11 +83,20 @@ void UpdateGameplayScreen(void)
 // Gameplay Screen Draw logic
 void DrawGameplayScreen(void)
 {
+    float _width = GetScreenWidth();
+    float _height = GetScreenHeight();
+
     draw_gameplay_ui();
 
     // DEBUG screen center
-    DrawLineEx({ 0.0, GetScreenHeight() / 2.0f }, { GetScreenWidth() * 1.0f, GetScreenHeight() / 2.0f }, 2, DARKPURPLE);
-    DrawLineEx({ GetScreenWidth() / 2.0f, 0.0 }, { GetScreenWidth() / 2.0f, GetScreenHeight() * 1.0f }, 2, DARKPURPLE);
+    DrawLineEx(
+        { 0.0, _height / 2.0f },
+        { _width, _height / 2.0f },
+        2, DARKPURPLE);
+    DrawLineEx(
+        { _width / 2.0f, 0.0 },
+        { _width / 2.0f, _height},
+        2, DARKPURPLE);
 
     // TODO: Draw GAMEPLAY screen here!
 

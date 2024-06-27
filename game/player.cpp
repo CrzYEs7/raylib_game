@@ -11,6 +11,7 @@ Player::Player()
 	this->m_motion_vector = { 0.0, 0.0 };
 	this->m_speed = 200.0;
 	this->m_velocity = { 0.0, 0.0 };
+	this->m_angle = 0;
 }
 
 void Player::move(float delta)
@@ -47,14 +48,19 @@ Vector2 Player::get_size() const
 
 void Player::update(float delta)
 {
+	Vector2 _mouse_pos = GetMousePosition();
 	this->move(delta);
 }
 
 void Player::draw() const
 {
-	DrawRectangleV(this->m_pos, this->m_size, RED);
+	//DrawRectangleV(this->m_pos, this->m_size, RED);
+
+	DrawTriangle(Vector2Add(this->m_pos, {20, 10}), this->m_pos, Vector2Add(this->m_pos, {0, 20}), RED);
 
 	// DEBUG speed
-	DrawTextEx(font, ("speedX: " + std::to_string(this->m_velocity.x)).c_str(), { this->m_pos.x + 80.0f, this->m_pos.y + 10.0f }, font.baseSize, 4, RED);
-	DrawTextEx(font, ("speedY: " + std::to_string(this->m_velocity.y)).c_str(), { this->m_pos.x + 80.0f, this->m_pos.y + 25.0f }, font.baseSize, 4, RED);
+	DrawTextEx(font, ("speedX: " + std::to_string(this->m_velocity.x)).c_str(), 
+		{ this->m_pos.x + 80.0f, this->m_pos.y + 10.0f }, font.baseSize, 4, RED);
+	DrawTextEx(font, ("speedY: " + std::to_string(this->m_velocity.y)).c_str(), 
+		{ this->m_pos.x + 80.0f, this->m_pos.y + 25.0f }, font.baseSize, 4, RED);
 }
