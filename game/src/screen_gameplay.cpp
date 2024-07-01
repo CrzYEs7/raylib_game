@@ -35,6 +35,7 @@ static int framesCounter = 0;
 static int finishScreen = 0;
 Camera2D* camera = { 0 };
 Player* player = { 0 };
+Vector2 mouse_position = { 0 };
 
 //----------------------------------------------------------------------------------
 // Gameplay Screen Functions Definition
@@ -61,19 +62,19 @@ void InitGameplayScreen(void)
 // Gameplay Screen Update logic
 void UpdateGameplayScreen(void)
 {
-    float delta = GetFrameTime();
     // TODO: Update GAMEPLAY screen variables here!
-    player->update(delta);
-
-    // FIXED
-    camera->target = player->get_position();
-    // SMOOTH
+    float delta = GetFrameTime();
+    camera->target = player->get_position(); // FIXED CAMERA
+    mouse_position = GetScreenToWorld2D(GetMousePosition(), *camera);
+    player->update(delta, *camera, mouse_position);
+    
+    // SMOOTH CAMERA
     /*camera->target.x = Lerp(camera->target.x, player->get_position().x, 10 * delta);
     camera->target.y = Lerp(camera->target.y, player->get_position().y, 10 * delta);*/
 
 
     // Press enter or tap to change to ENDING screen
-    if (IsKeyPressed(KEY_ENTER) || IsGestureDetected(GESTURE_TAP))
+    if (IsKeyPressed(KEY_ENTER))
     {
         finishScreen = 1;
         //PlaySound(fxCoin);
