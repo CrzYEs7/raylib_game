@@ -1,10 +1,14 @@
+#pragma once
+
 #include "raylib.h"
+#include "projectile.hpp"
+#include <vector>
 
 class Player
 {
 public:
 	Player();
-	~Player() = default;
+	~Player();
 
 private:
 	Font font = LoadFont("resources/mecha.png");
@@ -25,6 +29,8 @@ private:
 public:
 	void update(float delta, Camera2D camera, Vector2 mouse_position);
 	void draw() const;
+
 	Vector2 get_position() const;
 	Vector2 get_size() const;
+	std::vector<Projectile*> attacks;
 };

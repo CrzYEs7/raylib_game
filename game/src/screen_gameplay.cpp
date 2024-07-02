@@ -67,6 +67,11 @@ void UpdateGameplayScreen(void)
     camera->target = player->get_position(); // FIXED CAMERA
     mouse_position = GetScreenToWorld2D(GetMousePosition(), *camera);
     player->update(delta, *camera, mouse_position);
+
+    for (int i = 0; i < player->attacks.size(); i++)
+    {
+        player->attacks[i]->update(delta);
+    }
     
     // SMOOTH CAMERA
     /*camera->target.x = Lerp(camera->target.x, player->get_position().x, 10 * delta);
@@ -113,6 +118,11 @@ void DrawGameplayScreen(void)
         }
 
         player->draw();
+
+        for (int i = 0; i < player->attacks.size(); i++)
+        {
+            player->attacks[i]->draw();
+        }
     EndMode2D();
 }
 

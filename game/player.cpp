@@ -2,6 +2,7 @@
 #include "raymath.h"
 #include <iostream>
 #include <string>
+#include "projectile.hpp"
 
 Player::Player() :
 	m_mov_dir({ 0.0, 0.0 }), m_mouse_pos({ 0.0, 0.0 }),
@@ -9,6 +10,15 @@ Player::Player() :
 	m_pos({ 0.0, 0.0 }), m_speed(200.0), m_angle(0),
 	m_velocity({ 0.0, 0.0 }), m_look_dir({ 0.0, 0.0 })
 {
+}
+
+Player::~Player()
+{
+	/*for (int i = 0; i < this->attacks.size(); i++)
+	{
+		if (this->attacks[i]->state == 0)
+			delete this->attacks[i];
+	}*/
 }
 
 void Player::update(float delta, Camera2D camera, Vector2 mouse_position)
@@ -72,5 +82,8 @@ Vector2 Player::get_size() const
 
 void Player::attack()
 {
+	Projectile* projectile = new Projectile(Vector2Add(this->m_pos, { 10.0, 10.0 }),
+		Vector2Normalize(Vector2Scale(this->m_look_dir, -1)));
+	this->attacks.push_back(projectile);
 	std::cout << "attack" << std::endl;
 }

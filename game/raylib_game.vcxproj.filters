@@ -15,6 +15,9 @@
     <ClInclude Include="player.hpp">
       <Filter>Header Files</Filter>
     </ClInclude>
+    <ClInclude Include="projectile.hpp">
+      <Filter>Header Files</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="src\raylib_game.cpp">
@@ -35,6 +38,11 @@
     <ClCompile Include="src\screen_title.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="player.cpp" />
+    <ClCompile Include="player.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="projectile.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
   </ItemGroup>
 </Project>
