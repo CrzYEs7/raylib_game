@@ -48,8 +48,8 @@ void InitGameplayScreen(void)
     camera = new Camera2D;
     player = new Player();
     camera->offset = { 
-        GetScreenWidth() / 2.0f - player->get_size().x / 2, 
-        GetScreenHeight() / 2.0f - player->get_size().y / 2 };
+        GetScreenWidth() / 2.0f - player->get_size() / 2, 
+        GetScreenHeight() / 2.0f - player->get_size() / 2 };
 
     camera->target = player->get_position();
     camera->rotation = 0.0f;
@@ -70,7 +70,8 @@ void UpdateGameplayScreen(void)
 
     for (int i = 0; i < player->attacks.size(); i++)
     {
-        player->attacks[i]->update(delta);
+        if (!(player->attacks[i]->state == 1))
+            player->attacks[i]->update(delta);
     }
     
     // SMOOTH CAMERA
@@ -117,12 +118,13 @@ void DrawGameplayScreen(void)
             DrawLineEx({ 0.0, (float)y }, { (float)800, (float)y }, 1, GREEN);
         }
 
-        player->draw();
-
         for (int i = 0; i < player->attacks.size(); i++)
         {
             player->attacks[i]->draw();
         }
+
+        player->draw();
+
     EndMode2D();
 }
 

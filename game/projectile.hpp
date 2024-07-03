@@ -13,6 +13,8 @@ private:
 	float m_speed;
 	float m_size;
 	float m_angle;
+	float m_dist_traveled;
+	float m_max_dist_traveled;
 	Vector2 m_look_dir;
 	Vector2 m_pos;
 	Vector2 m_dir;

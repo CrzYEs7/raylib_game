@@ -6,7 +6,7 @@
 
 Player::Player() :
 	m_mov_dir({ 0.0, 0.0 }), m_mouse_pos({ 0.0, 0.0 }),
-	m_size({ 20, 20 }), m_motion_vector({ 0.0, 0.0 }),
+	m_size(20.0), m_motion_vector({ 0.0, 0.0 }),
 	m_pos({ 0.0, 0.0 }), m_speed(200.0), m_angle(0),
 	m_velocity({ 0.0, 0.0 }), m_look_dir({ 0.0, 0.0 })
 {
@@ -23,7 +23,7 @@ Player::~Player()
 
 void Player::update(float delta, Camera2D camera, Vector2 mouse_position)
 {
-	this->m_look_dir = Vector2Subtract(Vector2Add(this->m_pos, { 10.0, 10.0 }), mouse_position);
+	this->m_look_dir = Vector2Subtract(Vector2Add(this->m_pos, { m_size / 2, m_size / 2 }), mouse_position);
 	this->m_angle = atan2f(this->m_look_dir.y, this->m_look_dir.x) * RAD2DEG;
 	this->move(delta);
 
@@ -35,7 +35,7 @@ void Player::update(float delta, Camera2D camera, Vector2 mouse_position)
 
 void Player::draw() const
 {
-	DrawPoly(Vector2Add(this->m_pos, {10, 10}), 3, 20.0, this->m_angle - 180, RED);
+	DrawPoly(Vector2Add(this->m_pos, { m_size / 2, m_size / 2}), 3, m_size / 2, this->m_angle - 180, RED);
 	//DrawRectangleV(this->m_pos, this->m_size, RED);
 
 	// DEBUG speed
@@ -75,15 +75,14 @@ Vector2 Player::get_position() const
 	return m_pos;
 }
 
-Vector2 Player::get_size() const
+float Player::get_size() const
 {
 	return m_size;
 }
 
 void Player::attack()
 {
-	Projectile* projectile = new Projectile(Vector2Add(this->m_pos, { 10.0, 10.0 }),
+	Projectile* projectile = new Projectile(Vector2Add(this->m_pos, { m_size / 2, m_size / 2 }),
 		Vector2Normalize(Vector2Scale(this->m_look_dir, -1)));
 	this->attacks.push_back(projectile);
-	std::cout << "attack" << std::endl;
 }

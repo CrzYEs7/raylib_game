@@ -16,9 +16,9 @@ private:
 	Vector2 m_mov_dir;
 	Vector2 m_motion_vector;
 	Vector2 m_velocity;
-	Vector2 m_size;
 	Vector2 m_mouse_pos;
 	Vector2 m_look_dir;
+	float m_size;
 	float m_speed;
 	float m_angle;
 
@@ -31,6 +31,6 @@ public:
 	void draw() const;
 
 	Vector2 get_position() const;
-	Vector2 get_size() const;
+	float get_size() const;
 	std::vector<Projectile*> attacks;
 };
