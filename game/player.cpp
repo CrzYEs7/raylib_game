@@ -16,7 +16,7 @@ Player::~Player()
 {
 	/*for (int i = 0; i < this->attacks.size(); i++)
 	{
-		if (this->attacks[i]->state == 0)
+		if (this->attacks[i]->state == 1)
 			delete this->attacks[i];
 	}*/
 }

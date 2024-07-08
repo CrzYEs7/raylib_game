@@ -15,6 +15,7 @@ private:
 	float m_angle;
 	float m_dist_traveled;
 	float m_max_dist_traveled;
+	Vector2 m_center;
 	Vector2 m_look_dir;
 	Vector2 m_pos;
 	Vector2 m_dir;
@@ -26,8 +27,10 @@ public:
 public:
 	void update(float delta);
 	void draw() const;
+	Vector2 get_center() const;
 
 private:
+	void set_origin(Vector2 position);
 	void move(float delta);
 };
 

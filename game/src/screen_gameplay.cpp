@@ -68,10 +68,16 @@ void UpdateGameplayScreen(void)
     mouse_position = GetScreenToWorld2D(GetMousePosition(), *camera);
     player->update(delta, *camera, mouse_position);
 
-    for (int i = 0; i < player->attacks.size(); i++)
+    for (unsigned i = 0; i < player->attacks.size(); i++)
     {
-        if (!(player->attacks[i]->state == 1))
+        if (player->attacks[i]->state == 0)
+        {
             player->attacks[i]->update(delta);
+        }
+        else
+        {
+            player->attacks.erase(player->attacks.begin() + i);
+        }
     }
     
     // SMOOTH CAMERA
@@ -118,9 +124,12 @@ void DrawGameplayScreen(void)
             DrawLineEx({ 0.0, (float)y }, { (float)800, (float)y }, 1, GREEN);
         }
 
-        for (int i = 0; i < player->attacks.size(); i++)
+        for (unsigned i = 0; i < player->attacks.size(); i++)
         {
-            player->attacks[i]->draw();
+            if (player->attacks[i]->state == 0)
+            {
+                player->attacks[i]->draw();
+            }
         }
 
         player->draw();
