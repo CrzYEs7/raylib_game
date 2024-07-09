@@ -32,5 +32,5 @@ public:
 
 	Vector2 get_position() const;
 	float get_size() const;
-	std::vector<Projectile*> attacks;
+	std::vector<Projectile> attacks;
 };

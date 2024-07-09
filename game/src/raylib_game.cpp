@@ -44,9 +44,9 @@ static GameScreen transToScreen = UNKNOWN;
 //----------------------------------------------------------------------------------
 // Local Functions Declaration
 //----------------------------------------------------------------------------------
-static void ChangeToScreen(int screen);     // Change to screen, no transition effect
+static void ChangeToScreen(GameScreen screen);     // Change to screen, no transition effect
 
-static void TransitionToScreen(int screen); // Request transition to next screen
+static void TransitionToScreen(GameScreen screen); // Request transition to next screen
 static void UpdateTransition(void);         // Update transition effect
 static void DrawTransition(void);           // Draw transition effect (full-screen rectangle)
 
@@ -80,7 +80,7 @@ int main(void)
 #if defined(PLATFORM_WEB)
     emscripten_set_main_loop(UpdateDrawFrame, 60, 1);
 #else
-    SetTargetFPS(330);       // Set our game to run at 60 frames-per-second
+    SetTargetFPS(330);       // Set our game to run at x frames-per-second
     //--------------------------------------------------------------------------------------
 
     // Main game loop

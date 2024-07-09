@@ -82,7 +82,7 @@ float Player::get_size() const
 
 void Player::attack()
 {
-	Projectile* projectile = new Projectile(Vector2Add(this->m_pos, { m_size / 2, m_size / 2 }),
+	Projectile projectile = Projectile(Vector2Add(this->m_pos, { m_size / 2, m_size / 2 }),
 		Vector2Normalize(Vector2Scale(this->m_look_dir, -1)));
 	this->attacks.push_back(projectile);
 }

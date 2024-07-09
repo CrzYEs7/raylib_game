@@ -27,6 +27,7 @@
 #include "raymath.h"
 #include "screens.h"
 #include "player.hpp"
+#include <algorithm>
 
 //----------------------------------------------------------------------------------
 // Module Variables Definition (local)
@@ -70,14 +71,17 @@ void UpdateGameplayScreen(void)
 
     for (unsigned i = 0; i < player->attacks.size(); i++)
     {
-        if (player->attacks[i]->state == 0)
+        if (player->attacks[i].state == 0)
         {
-            player->attacks[i]->update(delta);
+            player->attacks[i].update(delta);
         }
-        else
-        {
-            player->attacks.erase(player->attacks.begin() + i);
-        }
+
+        // remove element from the player attacks Vector if their state is 1 (Inactive)
+        // this is probably the best way off doing it
+        player->attacks.erase(std::remove_if(player->attacks.begin(), player->attacks.end(),
+            [](Projectile const x) -> bool { return x.state == 1; }),
+            player->attacks.end());
+
     }
     
     // SMOOTH CAMERA
@@ -101,34 +105,37 @@ void DrawGameplayScreen(void)
 
     draw_gameplay_ui();
 
-    // DEBUG screen center
-    DrawLineEx(
-        { 0.0, _height / 2.0f },
-        { _width, _height / 2.0f },
-        2, DARKPURPLE);
-    DrawLineEx(
-        { _width / 2.0f, 0.0 },
-        { _width / 2.0f, _height},
-        2, DARKPURPLE);
+    #ifdef DEBUG
+        // DEBUG screen center
+        DrawLineEx(
+            { 0.0, _height / 2.0f },
+            { _width, _height / 2.0f },
+            2, DARKPURPLE);
+        DrawLineEx(
+            { _width / 2.0f, 0.0 },
+            { _width / 2.0f, _height},
+            2, DARKPURPLE);
+    #endif
 
     // TODO: Draw GAMEPLAY screen here!
-
     BeginMode2D(*camera);
-        // DEBUG Draw grid
-        for (int x = 0; x <= 800; x += 50)
-        {
-            DrawLineEx({ (float)x, 0.0 }, { (float)x, (float)800 }, 1, GREEN);
-        }
-        for (int y = 0; y <= 800; y += 50)
-        {
-            DrawLineEx({ 0.0, (float)y }, { (float)800, (float)y }, 1, GREEN);
-        }
+        #ifdef DEBUG
+            // DEBUG Draw grid
+            for (int x = 0; x <= 800; x += 50)
+            {
+                DrawLineEx({ (float)x, 0.0 }, { (float)x, (float)800 }, 1, GREEN);
+            }
+            for (int y = 0; y <= 800; y += 50)
+            {
+                DrawLineEx({ 0.0, (float)y }, { (float)800, (float)y }, 1, GREEN);
+            }
+        #endif
 
         for (unsigned i = 0; i < player->attacks.size(); i++)
         {
-            if (player->attacks[i]->state == 0)
+            if (player->attacks[i].state == 0)
             {
-                player->attacks[i]->draw();
+                player->attacks[i].draw();
             }
         }
 
@@ -146,6 +153,8 @@ void draw_gameplay_ui(void)
 void UnloadGameplayScreen(void)
 {
     // TODO: Unload GAMEPLAY screen variables here!
+    delete camera;
+    delete player;
 }
 
 // Gameplay Screen should finish?
